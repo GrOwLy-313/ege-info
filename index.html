@@ -561,6 +561,29 @@ print(min(R(N) <span class="kw">for</span> N <span class="kw">in</span> range(1,
 print(min(R(N) <span class="kw">for</span> N <span class="kw">in</span> range(1, 1000) <span class="kw">if</span> R(N) >= 520 <span class="kw">and</span> R(N) % 2 != 0))
     </div>
   </div></div>
+
+  <div class="sec-title">Пример 2 — ближайшее к числу</div>
+  <div class="block"><div class="bhead">Дописать цифры слева и справа, или сумму × 8</div><div class="bbody">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:8px;">Если N не делится на 3 → «1» слева + три последние справа. Иначе → сумма цифр × 8, перевести, дописать. Найти R, ближайшее к 1220.</div>
+    <div class="code">
+<span class="kw">def</span> <span class="md">tri</span>(N):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;b = <span class="st">''</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">while</span> N > 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b = str(N % 3) + b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N //= 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> b<br><br>
+<span class="kw">def</span> <span class="md">R</span>(N):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;b = tri(N)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> N % 3 != 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b = <span class="st">"1"</span> + b + b[-3:]  <span class="cm"># "1" слева, три последние справа</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">else</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b += tri(sum(list(map(int, b))) * 8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> int(b, 3)<br><br>
+<span class="cm"># Выводим все R в диапазоне вокруг 1220, выбираем ближайшее сами:</span><br>
+print([R(N) <span class="kw">for</span> N <span class="kw">in</span> range(1, 1000) <span class="kw">if</span> 1200 &lt; R(N) &lt; 1240])
+    </div>
+    <div class="wbox"><b>«Ближайшее к X»</b> — ищем в диапазоне (X−20, X+20), выводим весь список и сами выбираем ближайшее. Если список пустой — расширяем диапазон.</div>
+  </div></div>
 </div>
 
 <!-- ЗАДАНИЕ 6 -->
